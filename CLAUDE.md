@@ -75,3 +75,18 @@ git push origin main
 - 画像ファイル（JPG）は必ず `images/` 配下に置き、コミット対象に含める
 - `.DS_Store` など macOS 固有ファイルはコミットしない（`.gitignore` で除外済み）
 - `main` ブランチへ直接コミット・プッシュして構わない（単独開発のため）
+
+## SEO
+
+`index.html` の `<head>` に `meta description` と OGP タグを設定済み。
+
+**公開URLが決まったら必ず差し替えること（2箇所）:**
+
+```html
+<meta property="og:url"   content="https://your-domain.example/" />
+<meta property="og:image" content="https://your-domain.example/images/work-red.jpg" />
+```
+
+`twitter:image` も同じURLに合わせて更新する（計4行）。
+OGP 画像は `work-red.jpg`（左パネルのメイン画像）を使用。
+SNS シェア時のプレビューに表示される。
