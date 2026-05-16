@@ -20,17 +20,16 @@ body {
   font-weight: 400;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  /* page-load fade */
+  /* page-load fade — transform は使わない（body に transform があると
+     position:fixed の子孫がビューポート基準でなくなるため） */
   opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 1.1s ease, transform 1.1s ease;
+  transition: opacity 1.1s ease;
 }
 body.is-loaded {
   opacity: 1;
-  transform: translateY(0);
 }
 @media (prefers-reduced-motion: reduce) {
-  body { opacity: 1; transform: none; transition: none; }
+  body { opacity: 1; transition: none; }
 }
 .mono { font-family: 'JetBrains Mono', monospace; font-weight: 400; }
 
