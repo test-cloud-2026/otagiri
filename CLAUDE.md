@@ -3,13 +3,15 @@
 ## プロジェクト概要
 
 油彩画家の個展「いのちの傍で」のランディングページ（LP）。
-静的HTML単一ファイル構成で、外部依存は Google Fonts のみ。
+静的HTML + 外部CSS/JS構成で、外部依存は Google Fonts のみ。
 
 ## ファイル構成
 
 ```
 いのちの傍で/
-├── index.html        メインHTML（全コンテンツ・スタイル・JSを含む）
+├── index.html        メインHTML（コンテンツ・構造）
+├── style.css         全スタイル
+├── main.js           JavaScript（スクロールスパイ・フェードイン等）
 ├── images/           作品・プロフィール画像（JPG）
 ├── README.md         編集者向けファイル説明
 └── CLAUDE.md         本ファイル
@@ -19,14 +21,20 @@
 
 - 純粋 HTML / CSS / Vanilla JS（ビルドツール不使用）
 - フォント: Shippori Mincho / Noto Serif JP / JetBrains Mono（Google Fonts）
-- 配色トークンは `index.html` 冒頭の `:root { ... }` に集約
+- 配色トークンは `style.css` 冒頭の `:root { ... }` に集約
 
 ## コーディング規約
 
-- `index.html` の編集のみでサイトが完結する構成を維持する
+- スタイルは `style.css` に、JS は `main.js` に追記する
 - スタイルは既存の CSS 変数（`--paper`, `--ink` 等）を優先して使う
-- JS は末尾 `<script>` ブロックに追記し、外部ファイルへ分離しない
 - 画像は `images/` ディレクトリに格納し、パスを相対パスで記述する
+
+### CSS の重要な制約
+
+**`body` に `transform` を設定してはいけない。**
+`transform` が設定された要素は、子孫の `position: fixed` の含有ブロックになるため、
+`.left`（左固定パネル）がビューポート基準ではなく `body` 基準で固定され、
+スクロールに追随してしまう。ページロードフェードは `opacity` のみで行うこと。
 
 ## Git 運用ルール
 
@@ -46,6 +54,8 @@ git diff
 
 # 2. ステージング（変更ファイルを指定して追加）
 git add index.html        # HTML を変更した場合
+git add style.css         # スタイルを変更した場合
+git add main.js           # JS を変更した場合
 git add images/           # 画像を追加・変更した場合
 
 # 3. コミット
